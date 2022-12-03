@@ -1,4 +1,3 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.net.URL;
 
@@ -30,8 +29,8 @@ public class VendingMachine extends JFrame {
     private JButton a2GrButton;
     private JButton a1GrButton;
 
-    URL iconURL = getClass().getResource("img/icon.png");
-    ImageIcon icon = new ImageIcon(iconURL);
+    private URL iconURL = getClass().getResource("img/icon.png");
+    private ImageIcon icon = new ImageIcon(iconURL);
 
     public VendingMachine() {
         super("Snack Vending Machine");
@@ -39,6 +38,11 @@ public class VendingMachine extends JFrame {
         this.setContentPane(mainPanel);
         this.setIconImage(icon.getImage());
         this.setBounds(0, 0, 960, 540);
+    }
+
+    public void createTable() {
+        String[] columnsNames = {"Distributor", "Name", "Number", "Price", "Remaining"};
+
     }
 
     public static void main(String[] args) {
