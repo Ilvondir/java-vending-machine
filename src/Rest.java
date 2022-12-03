@@ -1,13 +1,12 @@
 public class Rest {
-    private double rest;
-    private int[] nominals = {500, 200, 100, 50, 20, 10, 5, 2, 1};
-    private int[] given = new int[9];
-    private int restInCents;
+    private final double rest;
+    private final int[] nominals = {500, 200, 100, 50, 20, 10, 5, 2, 1};
+    private final int[] given = new int[9];
+    private final int restInCents;
 
     public Rest(double rest) {
         this.rest = rest;
-        int temp = (int)((rest+0.00001)*100);
-        this.restInCents = temp;
+        this.restInCents = (int)((rest+0.00001)*100);
     }
 
     public String spend() {
@@ -31,8 +30,6 @@ public class Rest {
         for(i=0;i<9;i++) {
             communicate += this.nominals[i]/100.0 + " \t" + this.given[i] + "\n";
         }
-
-        System.out.println(communicate);
 
         return communicate;
     }
