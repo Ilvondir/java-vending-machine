@@ -1,8 +1,7 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.net.URL;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class VendingMachine extends JFrame {
 
@@ -35,7 +34,7 @@ public class VendingMachine extends JFrame {
     private URL iconURL = getClass().getResource("img/icon.png");
     private ImageIcon icon = new ImageIcon(iconURL);
 
-    public VendingMachine() {
+    public VendingMachine() throws SQLException {
         super("Snack Vending Machine");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
@@ -44,9 +43,33 @@ public class VendingMachine extends JFrame {
         createTable();
     }
 
-    public void createTable() {
+    public void createTable() throws SQLException {
         String[] columnsNames = {"Distributor", "Name", "Number", "Price", "Remaining"};
-        String[][] rows = new String[1][1];
+        String[][] rows = new String[44][5];
+
+        Connection conn = Database.connect();
+        String sql = "select Producer, Name, Number, Price, Remaining from stuff";
+
+        Statement stat = conn.createStatement();
+        ResultSet results = stat.executeQuery(sql);
+
+        int i = 0;
+        while (results.next()) {
+            String prod = results.getString("Producer");
+            String name = results.getString("Name");
+            String number = results.getString("Number");
+            String price = results.getString("Price");
+            String remaining = results.getString("Remaining");
+
+            rows[i][0] = prod;
+            rows[i][1] = name;
+            rows[i][2] = number;
+            rows[i][3] = price;
+            rows[i][4] = remaining;
+
+            i++;
+        }
+
 
         DefaultTableModel tmodel = new DefaultTableModel(rows, columnsNames);
 
