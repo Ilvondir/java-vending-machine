@@ -18,9 +18,9 @@ public class VendingMachine extends JFrame {
     private JButton a6Button;
     private JButton a9Button;
     private JButton buyButton;
-    private JButton a8Button1;
+    private JButton a8Button;
     private JButton a4Button;
-    private JButton a7Button1;
+    private JButton a7Button;
     private JButton a0Button;
     private JButton cancelButton;
     private JButton a5ZlButton;
@@ -47,6 +47,66 @@ public class VendingMachine extends JFrame {
         numberField.setFont(new Font("Digital-7", Font.PLAIN, 120));
         numberField.setBorder(new LineBorder(Color.BLACK, 4));
         createTable();
+
+        a1Button.addActionListener(e -> {
+            String txt = numberField.getText();
+            txt += "1";
+            numberField.setText(txt);
+        });
+
+        a2Button.addActionListener(e -> {
+            String txt = numberField.getText();
+            txt += "2";
+            numberField.setText(txt);
+        });
+
+        a3Button.addActionListener(e -> {
+            String txt = numberField.getText();
+            txt += "3";
+            numberField.setText(txt);
+        });
+
+        a4Button.addActionListener(e -> {
+            String txt = numberField.getText();
+            txt += "4";
+            numberField.setText(txt);
+        });
+
+        a5Button.addActionListener(e -> {
+            String txt = numberField.getText();
+            txt += "5";
+            numberField.setText(txt);
+        });
+
+        a6Button.addActionListener(e -> {
+            String txt = numberField.getText();
+            txt += "6";
+            numberField.setText(txt);
+        });
+
+        a7Button.addActionListener(e -> {
+            String txt = numberField.getText();
+            txt += "7";
+            numberField.setText(txt);
+        });
+
+        a8Button.addActionListener(e -> {
+            String txt = numberField.getText();
+            txt += "8";
+            numberField.setText(txt);
+        });
+
+        a9Button.addActionListener(e -> {
+            String txt = numberField.getText();
+            txt += "9";
+            numberField.setText(txt);
+        });
+
+        a0Button.addActionListener(e -> {
+            String txt = numberField.getText();
+            txt += "0";
+            numberField.setText(txt);
+        });
     }
 
     public void createTable() throws SQLException {
