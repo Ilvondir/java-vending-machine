@@ -389,7 +389,7 @@
                   <background color="-14788361"/>
                   <editable value="false"/>
                   <enabled value="true"/>
-                  <font name="Cascadia Mono" size="72" style="1"/>
+                  <font size="72" style="1"/>
                   <foreground color="-6095617"/>
                   <text value=""/>
                   <toolTipText value="Numer artykułu z automatu."/>
@@ -416,7 +416,7 @@
                 <properties>
                   <background color="-14788361"/>
                   <editable value="false"/>
-                  <font name="Cascadia Mono" size="72" style="1"/>
+                  <font size="72" style="1"/>
                   <foreground color="-6095617"/>
                   <text value="0.00"/>
                   <toolTipText value="Wpłacone pieniądze."/>
