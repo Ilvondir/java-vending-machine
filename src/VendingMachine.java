@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.net.URL;
+import java.sql.SQLException;
 
 public class VendingMachine extends JFrame {
 
@@ -45,8 +46,10 @@ public class VendingMachine extends JFrame {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         VendingMachine mySnackMachine = new VendingMachine();
         mySnackMachine.setVisible(true);
+
+        Database.connect();
     }
 }
