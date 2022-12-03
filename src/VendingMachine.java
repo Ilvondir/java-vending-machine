@@ -18,9 +18,9 @@ public class VendingMachine extends JFrame {
     private JButton a7Button1;
     private JButton a0Button;
     private JButton cancelButton;
-    private JButton a5ZłButton;
-    private JButton a2ZłButton;
-    private JButton a1ZłButton;
+    private JButton a5ZlButton;
+    private JButton a2ZlButton;
+    private JButton a1ZlButton;
     private JButton a50GrButton;
     private JButton a20GrButton;
     private JButton a10GrButton;
