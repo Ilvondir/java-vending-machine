@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.net.URL;
 import java.sql.SQLException;
 
@@ -39,11 +41,16 @@ public class VendingMachine extends JFrame {
         this.setContentPane(mainPanel);
         this.setIconImage(icon.getImage());
         this.setBounds(0, 0, 960, 540);
+        createTable();
     }
 
     public void createTable() {
         String[] columnsNames = {"Distributor", "Name", "Number", "Price", "Remaining"};
+        String[][] rows = new String[1][1];
 
+        DefaultTableModel tmodel = new DefaultTableModel(rows, columnsNames);
+
+        stuffTable.setModel(tmodel);
     }
 
     public static void main(String[] args) throws SQLException {
