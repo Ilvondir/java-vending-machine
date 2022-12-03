@@ -36,6 +36,10 @@ public class VendingMachine extends JFrame {
     }
 
     public static void main(String[] args) {
+        double rest = 9.28;
+        Rest first = new Rest(rest);
+        System.out.println(first.spend());
+
         VendingMachine mySnackMachine = new VendingMachine();
         mySnackMachine.setVisible(true);
     }
