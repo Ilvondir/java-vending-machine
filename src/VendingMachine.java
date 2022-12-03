@@ -50,36 +50,16 @@ public class VendingMachine extends JFrame {
         numberField.setHorizontalAlignment(JTextField.CENTER);
         createTable();
 
-        a1Button.addActionListener(e -> {
-            button("1");
-        });
-        a2Button.addActionListener(e -> {
-            button("2");
-        });
-        a3Button.addActionListener(e -> {
-            button("3");
-        });
-        a4Button.addActionListener(e -> {
-            button("4");
-        });
-        a5Button.addActionListener(e -> {
-            button("5");
-        });
-        a6Button.addActionListener(e -> {
-            button("6");
-        });
-        a7Button.addActionListener(e -> {
-            button("7");
-        });
-        a8Button.addActionListener(e -> {
-            button("8");
-        });
-        a9Button.addActionListener(e -> {
-            button("9");
-        });
-        a0Button.addActionListener(e -> {
-            button("0");
-        });
+        a1Button.addActionListener(e -> button("1"));
+        a2Button.addActionListener(e -> button("2"));
+        a3Button.addActionListener(e -> button("3"));
+        a4Button.addActionListener(e -> button("4"));
+        a5Button.addActionListener(e -> button("5"));
+        a6Button.addActionListener(e -> button("6"));
+        a7Button.addActionListener(e -> button("7"));
+        a8Button.addActionListener(e -> button("8"));
+        a9Button.addActionListener(e -> button("9"));
+        a0Button.addActionListener(e -> button("0"));
     }
 
     public void button(String num) {
