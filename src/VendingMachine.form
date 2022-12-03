@@ -221,7 +221,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="8e46e" class="javax.swing.JButton" binding="a8Button1" default-binding="true">
+                  <component id="8e46e" class="javax.swing.JButton" binding="a8Button">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="90" height="30"/>
@@ -247,7 +247,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="fcb5b" class="javax.swing.JButton" binding="a7Button1" default-binding="true">
+                  <component id="fcb5b" class="javax.swing.JButton" binding="a7Button">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="90" height="30"/>
@@ -389,7 +389,7 @@
                   <background color="-14788361"/>
                   <editable value="false"/>
                   <enabled value="true"/>
-                  <font name="Cascadia Mono" size="72" style="1"/>
+                  <font size="72" style="1"/>
                   <foreground color="-6095617"/>
                   <text value=""/>
                   <toolTipText value="Numer artykułu z automatu."/>
@@ -416,7 +416,7 @@
                 <properties>
                   <background color="-14788361"/>
                   <editable value="false"/>
-                  <font name="Cascadia Mono" size="72" style="1"/>
+                  <font size="72" style="1"/>
                   <foreground color="-6095617"/>
                   <text value="0.00"/>
                   <toolTipText value="Wpłacone pieniądze."/>
