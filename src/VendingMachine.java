@@ -1,5 +1,7 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.net.URL;
 import java.sql.*;
 
@@ -40,6 +42,10 @@ public class VendingMachine extends JFrame {
         this.setContentPane(mainPanel);
         this.setIconImage(icon.getImage());
         this.setBounds(0, 0, 960, 540);
+        moneyField.setFont(new Font("Digital-7", Font.PLAIN, 120));
+        moneyField.setBorder(new LineBorder(Color.BLACK, 4));
+        numberField.setFont(new Font("Digital-7", Font.PLAIN, 120));
+        numberField.setBorder(new LineBorder(Color.BLACK, 4));
         createTable();
     }
 
