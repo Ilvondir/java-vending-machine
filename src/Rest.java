@@ -6,7 +6,7 @@ public class Rest {
 
     public Rest(double rest) {
         this.rest = rest;
-        int temp = (int)(rest*100);
+        int temp = (int)((rest+0.00001)*100);
         this.restInCents = temp;
     }
 
