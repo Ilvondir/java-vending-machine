@@ -6,6 +6,7 @@ import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.sql.*;
+import java.util.Locale;
 
 public class VendingMachine extends JFrame {
 
@@ -41,6 +42,8 @@ public class VendingMachine extends JFrame {
     private String buttonSoundPath = "src/audio/button.mp3";
     private MP3Player player = new MP3Player(new File(buttonSoundPath));
 
+    private MP3Player coinPlayer = new MP3Player(new File("src/audio/coin.mp3"));
+
     public VendingMachine() throws SQLException {
         super("Snack Vending Machine");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -55,25 +58,47 @@ public class VendingMachine extends JFrame {
         numberField.setHorizontalAlignment(JTextField.CENTER);
         createTable();
 
-        a1Button.addActionListener(e -> button("1"));
-        a2Button.addActionListener(e -> button("2"));
-        a3Button.addActionListener(e -> button("3"));
-        a4Button.addActionListener(e -> button("4"));
-        a5Button.addActionListener(e -> button("5"));
-        a6Button.addActionListener(e -> button("6"));
-        a7Button.addActionListener(e -> button("7"));
-        a8Button.addActionListener(e -> button("8"));
-        a9Button.addActionListener(e -> button("9"));
-        a0Button.addActionListener(e -> button("0"));
+        a1GrButton.addActionListener(e -> coinButton(0.01));
+        a2GrButton.addActionListener(e -> coinButton(0.02));
+        a5GrButton.addActionListener(e -> coinButton(0.05));
+        a10GrButton.addActionListener(e -> coinButton(0.10));
+        a20GrButton.addActionListener(e -> coinButton(0.20));
+        a50GrButton.addActionListener(e -> coinButton(0.50));
+        a1ZlButton.addActionListener(e -> coinButton(1.00));
+        a2ZlButton.addActionListener(e -> coinButton(2.00));
+        a5ZlButton.addActionListener(e -> coinButton(5.00));
+
+        a1Button.addActionListener(e -> numericButton("1"));
+        a2Button.addActionListener(e -> numericButton("2"));
+        a3Button.addActionListener(e -> numericButton("3"));
+        a4Button.addActionListener(e -> numericButton("4"));
+        a5Button.addActionListener(e -> numericButton("5"));
+        a6Button.addActionListener(e -> numericButton("6"));
+        a7Button.addActionListener(e -> numericButton("7"));
+        a8Button.addActionListener(e -> numericButton("8"));
+        a9Button.addActionListener(e -> numericButton("9"));
+        a0Button.addActionListener(e -> numericButton("0"));
     }
 
-    public void button(String num) {
+    public void numericButton(String num) {
+        player.play();
         String txt = numberField.getText();
         if (txt.length()<2) txt += num;
         else txt = num;
         numberField.setText(txt);
-        player.play();
     }
+
+    public void coinButton(double value) {
+        double status = Double.parseDouble(moneyField.getText());
+        int money = (int)(status*100);
+        money += value*100;
+
+        moneyField.setText(String.format(Locale.US, "%.2f", money/100.0));
+
+        coinPlayer.play();
+    }
+
+
     public void createTable() throws SQLException {
         String[] columnsNames = {"Distributor", "Name", "Number", "Price", "Remaining"};
         String[][] rows = new String[44][5];
