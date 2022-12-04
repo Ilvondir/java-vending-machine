@@ -78,6 +78,15 @@ public class VendingMachine extends JFrame {
         a8Button.addActionListener(e -> numericButton("8"));
         a9Button.addActionListener(e -> numericButton("9"));
         a0Button.addActionListener(e -> numericButton("0"));
+
+        cancelButton.addActionListener(e -> {
+            double status = Double.parseDouble(moneyField.getText());
+            moneyField.setText("0.00");
+            numberField.setText("");
+
+            Rest cancelRest = new Rest(status);
+            JOptionPane.showMessageDialog(this, cancelRest.spend(), "Spend rest", 1);
+        });
     }
 
     public void numericButton(String num) {
