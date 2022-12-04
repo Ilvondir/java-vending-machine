@@ -1,7 +1,9 @@
+import jaco.mp3.player.MP3Player;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.File;
 import java.net.URL;
 import java.sql.*;
 
@@ -36,6 +38,9 @@ public class VendingMachine extends JFrame {
     private URL iconURL = getClass().getResource("img/icon.png");
     private ImageIcon icon = new ImageIcon(iconURL);
 
+    private String buttonSoundPath = "src/audio/button.mp3";
+    private MP3Player player = new MP3Player(new File(buttonSoundPath));
+
     public VendingMachine() throws SQLException {
         super("Snack Vending Machine");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -64,10 +69,10 @@ public class VendingMachine extends JFrame {
 
     public void button(String num) {
         String txt = numberField.getText();
-        if (txt.length()<2) {
-            txt += num;
-            numberField.setText(txt);
-        }
+        if (txt.length()<2) txt += num;
+        else txt = num;
+        numberField.setText(txt);
+        player.play();
     }
     public void createTable() throws SQLException {
         String[] columnsNames = {"Distributor", "Name", "Number", "Price", "Remaining"};

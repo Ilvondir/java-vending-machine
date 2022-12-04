@@ -592,7 +592,7 @@
                   <background color="-10789279"/>
                   <font size="22" style="1"/>
                   <foreground color="-2432542"/>
-                  <text value="1 zł"/>
+                  <text value="1 zl"/>
                 </properties>
               </component>
             </children>
@@ -615,7 +615,7 @@
                   <background color="-10789279"/>
                   <font size="22" style="1"/>
                   <foreground color="-2432542"/>
-                  <text value="2 zł"/>
+                  <text value="2 zl"/>
                 </properties>
               </component>
             </children>
@@ -638,7 +638,7 @@
                   <background color="-10789279"/>
                   <font size="22" style="1"/>
                   <foreground color="-2432542"/>
-                  <text value="5 zł"/>
+                  <text value="5 zl"/>
                 </properties>
               </component>
             </children>
