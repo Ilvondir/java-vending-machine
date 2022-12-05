@@ -99,7 +99,7 @@ public class VendingMachine extends JFrame {
 
     public void coinButton(double value) {
         double status = Double.parseDouble(moneyField.getText());
-        int money = (int)(status*100);
+        int money = (int)((status+0.00001)*100);
         money += value*100;
 
         moneyField.setText(String.format(Locale.US, "%.2f", money/100.0));
