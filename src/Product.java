@@ -1,4 +1,4 @@
 public interface Product {
-    public void print();
-    public void buyOne();
+    public String toString();
+    public String buyOne();
 }
