@@ -16,4 +16,20 @@ public class Database {
             return connection;
         }
     }
+
+        public static void getProducts() {
+            try {
+                Connection connect = connect();
+                String query = "select * from stuff";
+                Statement stat = connect.createStatement();
+                ResultSet rs = stat.executeQuery(query);
+
+                int i = 0;
+                while (rs.next()) {
+
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
 }

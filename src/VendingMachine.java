@@ -78,6 +78,15 @@ public class VendingMachine extends JFrame {
         a8Button.addActionListener(e -> numericButton("8"));
         a9Button.addActionListener(e -> numericButton("9"));
         a0Button.addActionListener(e -> numericButton("0"));
+
+        cancelButton.addActionListener(e -> {
+            double status = Double.parseDouble(moneyField.getText());
+            moneyField.setText("0.00");
+            numberField.setText("");
+
+            Rest cancelRest = new Rest(status);
+            JOptionPane.showMessageDialog(this, cancelRest.spend(), "Spend rest", 1);
+        });
     }
 
     public void numericButton(String num) {
@@ -90,7 +99,7 @@ public class VendingMachine extends JFrame {
 
     public void coinButton(double value) {
         double status = Double.parseDouble(moneyField.getText());
-        int money = (int)(status*100);
+        int money = (int)((status+0.00001)*100);
         money += value*100;
 
         moneyField.setText(String.format(Locale.US, "%.2f", money/100.0));
@@ -100,36 +109,36 @@ public class VendingMachine extends JFrame {
 
 
     public void createTable() throws SQLException {
-        String[] columnsNames = {"Distributor", "Name", "Number", "Price", "Remaining"};
-        String[][] rows = new String[44][5];
-
-        Connection conn = Database.connect();
-        String sql = "select Producer, Name, Number, Price, Remaining from stuff";
-
-        Statement stat = conn.createStatement();
-        ResultSet results = stat.executeQuery(sql);
-
-        int i = 0;
-        while (results.next()) {
-            String prod = results.getString("Producer");
-            String name = results.getString("Name");
-            String number = results.getString("Number");
-            String price = results.getString("Price");
-            String remaining = results.getString("Remaining");
-
-            rows[i][0] = prod;
-            rows[i][1] = name;
-            rows[i][2] = number;
-            rows[i][3] = price;
-            rows[i][4] = remaining;
-
-            i++;
-        }
-
-
-        DefaultTableModel tmodel = new DefaultTableModel(rows, columnsNames);
-
-        stuffTable.setModel(tmodel);
+//        String[] columnsNames = {"Distributor", "Name", "Number", "Price", "Remaining"};
+//        String[][] rows = new String[44][5];
+//
+//        Connection conn = Database.connect();
+//        String sql = "select Producer, Name, Number, Price, Remaining from stuff";
+//
+//        Statement stat = conn.createStatement();
+//        ResultSet results = stat.executeQuery(sql);
+//
+//        int i = 0;
+//        while (results.next()) {
+//            String prod = results.getString("Producer");
+//            String name = results.getString("Name");
+//            String number = results.getString("Number");
+//            String price = results.getString("Price");
+//            String remaining = results.getString("Remaining");
+//
+//            rows[i][0] = prod;
+//            rows[i][1] = name;
+//            rows[i][2] = number;
+//            rows[i][3] = price;
+//            rows[i][4] = remaining;
+//
+//            i++;
+//        }
+//
+//
+//        DefaultTableModel tmodel = new DefaultTableModel(rows, columnsNames);
+//
+//        stuffTable.setModel(tmodel);
     }
 
     public static void main(String[] args) throws SQLException {
