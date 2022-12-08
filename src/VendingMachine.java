@@ -6,6 +6,7 @@ import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class VendingMachine extends JFrame {
@@ -49,7 +50,7 @@ public class VendingMachine extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.setIconImage(icon.getImage());
-        this.setBounds(0, 0, 960, 540);
+        this.setBounds(0, 0, 1210, 540);
         moneyField.setFont(new Font("Digital-7", Font.PLAIN, 120));
         moneyField.setBorder(new LineBorder(Color.BLACK, 4));
         moneyField.setHorizontalAlignment(JTextField.CENTER);
@@ -85,7 +86,7 @@ public class VendingMachine extends JFrame {
             numberField.setText("");
 
             Rest cancelRest = new Rest(status);
-            JOptionPane.showMessageDialog(this, cancelRest.spend(), "Spend rest", 1);
+            new MessageWindow(cancelRest.spend());
         });
     }
 
@@ -108,42 +109,43 @@ public class VendingMachine extends JFrame {
     }
 
 
-    public void createTable() throws SQLException {
-//        String[] columnsNames = {"Distributor", "Name", "Number", "Price", "Remaining"};
-//        String[][] rows = new String[44][5];
-//
-//        Connection conn = Database.connect();
-//        String sql = "select Producer, Name, Number, Price, Remaining from stuff";
-//
-//        Statement stat = conn.createStatement();
-//        ResultSet results = stat.executeQuery(sql);
-//
-//        int i = 0;
-//        while (results.next()) {
-//            String prod = results.getString("Producer");
-//            String name = results.getString("Name");
-//            String number = results.getString("Number");
-//            String price = results.getString("Price");
-//            String remaining = results.getString("Remaining");
-//
-//            rows[i][0] = prod;
-//            rows[i][1] = name;
-//            rows[i][2] = number;
-//            rows[i][3] = price;
-//            rows[i][4] = remaining;
-//
-//            i++;
-//        }
-//
-//
-//        DefaultTableModel tmodel = new DefaultTableModel(rows, columnsNames);
-//
-//        stuffTable.setModel(tmodel);
+    public void createTable() {
+        ArrayList<Product> stuffList = Database.getProducts();
+
+        String[] columns = {"Producer", "Name", "Volume",  "Number", "Price", "Remaining"};
+
+        int i = 0;
+        for (Object e : stuffList) i++;
+        String[][] rows = new String[i][6];
+
+        i=0;
+        for (Product e : stuffList) {
+            if (e instanceof Food) {
+                rows[i][0] = ((Food) e).getProducer();
+                rows[i][1] = ((Food) e).getName();
+                rows[i][2] = "---";
+                rows[i][3] = ((Food) e).getNumber();
+                rows[i][4] = String.valueOf(((Food) e).getPrice());
+                rows[i][5] = String.valueOf(((Food) e).getRemaining());
+
+            } else {
+                rows[i][0] = ((Drink) e).getProducer();
+                rows[i][1] = ((Drink) e).getName();
+                rows[i][2] = String.valueOf(((Drink) e).getVolume());
+                rows[i][3] = ((Drink) e).getNumber();
+                rows[i][4] = String.valueOf(((Drink) e).getPrice());
+                rows[i][5] = String.valueOf(((Drink) e).getRemaining());
+            }
+            i++;
+        }
+
+        DefaultTableModel model = new DefaultTableModel(rows, columns);
+        stuffTable.setModel(model);
     }
 
     public static void main(String[] args) throws SQLException {
         VendingMachine mySnackMachine = new VendingMachine();
         mySnackMachine.setVisible(true);
-
+        new MessageWindow("Nie");
     }
 }
