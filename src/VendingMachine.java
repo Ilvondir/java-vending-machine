@@ -50,7 +50,7 @@ public class VendingMachine extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.setIconImage(icon.getImage());
-        this.setBounds(0, 0, 960, 540);
+        this.setBounds(0, 0, 1210, 540);
         moneyField.setFont(new Font("Digital-7", Font.PLAIN, 120));
         moneyField.setBorder(new LineBorder(Color.BLACK, 4));
         moneyField.setHorizontalAlignment(JTextField.CENTER);
@@ -86,6 +86,7 @@ public class VendingMachine extends JFrame {
             numberField.setText("");
 
             Rest cancelRest = new Rest(status);
+            new MessageWindow(cancelRest.spend());
         });
     }
 
@@ -145,6 +146,6 @@ public class VendingMachine extends JFrame {
     public static void main(String[] args) throws SQLException {
         VendingMachine mySnackMachine = new VendingMachine();
         mySnackMachine.setVisible(true);
-        new MessageWindow();
+        new MessageWindow("Nie");
     }
 }
