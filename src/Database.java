@@ -1,35 +1,48 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Database {
-    public static Connection connect() throws SQLException {
-        Connection connection = null;
-        String username = "root";
-        String password = "";
-        String host = "jdbc:mysql://localhost/java_vending_machine";
+        public static ArrayList<Product> getProducts() {
+            ArrayList<Product> list = new ArrayList<>();
 
-        try {
-            connection = DriverManager.getConnection(host, username, password);
-        } catch (SQLException e) {
-            System.out.println("Blad polaczenia z baza");
-            throw new SQLException(e.getMessage());
-        } finally {
-            return connection;
-        }
-    }
+            Connection connection = null;
+            String username = "root";
+            String password = "";
+            String host = "jdbc:mysql://localhost/java_vending_machine";
 
-        public static void getProducts() {
             try {
-                Connection connect = connect();
+                connection = DriverManager.getConnection(host, username, password);
                 String query = "select * from stuff";
-                Statement stat = connect.createStatement();
-                ResultSet rs = stat.executeQuery(query);
+                Statement stat = connection.createStatement();
+                ResultSet results = stat.executeQuery(query);
 
                 int i = 0;
-                while (rs.next()) {
+                while (results.next()) {
+                    String producer = results.getString("Producer");
+                    String name = results.getString("Name");
+                    String number = results.getString("Number");
+                    double price = results.getDouble("Price");
+                    double volume = results.getDouble("Volume");
+                    int remaining = results.getInt("Remaining");
+                    int type = results.getInt("Type_ID");
 
+                    if (type==1) {
+                        Food f = new Food(producer, name, number, price, remaining);
+                        list.add(f);
+                    } else {
+                        Drink d = new Drink(producer, name, number, price, volume, remaining);
+                        list.add(d);
+                    }
                 }
+
+                return list;
+
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                System.out.println("Nie udalo sie polaczyc z baza produktow.");
+
+            } finally {
+                list.add(new Drink("Sink", "Water", "11", 2.00, 0.5, 10));
+                return list;
             }
         }
 }
