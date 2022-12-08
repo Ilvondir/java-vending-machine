@@ -11,6 +11,26 @@ public class Food implements Product {
         this.remaining = remaining;
     }
 
+    public String getProducer() {
+        return producer;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public int getRemaining() {
+        return remaining;
+    }
+
     public String toString() {
         return "Food{" +
                 "producer='" + producer + '\'' +

@@ -39,9 +39,8 @@ public class Database {
 
             } catch (SQLException e) {
                 System.out.println("Nie udalo sie polaczyc z baza produktow.");
-
-            } finally {
-                list.add(new Drink("Sink", "Water", "11", 2.00, 0.5, 10));
+                list.add(new Drink("Sink", "Woda niegazowana", "11", 2.00, 0.5, 10));
+                list.add(new Food("Dirt", "Marchew", "12", 1.50,  5));
                 return list;
             }
         }

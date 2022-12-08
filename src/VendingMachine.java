@@ -2,7 +2,6 @@ import jaco.mp3.player.MP3Player;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.io.File;
 import java.net.URL;
@@ -112,6 +111,36 @@ public class VendingMachine extends JFrame {
 
     public void createTable() {
         ArrayList<Product> stuffList = Database.getProducts();
+
+        String[] columns = {"Producer", "Name", "Volume",  "Number", "Price", "Remaining"};
+
+        int i = 0;
+        for (Object e : stuffList) i++;
+        String[][] rows = new String[i][6];
+
+        i=0;
+        for (Product e : stuffList) {
+            if (e instanceof Food) {
+                rows[i][0] = ((Food) e).getProducer();
+                rows[i][1] = ((Food) e).getName();
+                rows[i][2] = "---";
+                rows[i][3] = ((Food) e).getNumber();
+                rows[i][4] = String.valueOf(((Food) e).getPrice());
+                rows[i][5] = String.valueOf(((Food) e).getRemaining());
+
+            } else {
+                rows[i][0] = ((Drink) e).getProducer();
+                rows[i][1] = ((Drink) e).getName();
+                rows[i][2] = String.valueOf(((Drink) e).getVolume());
+                rows[i][3] = ((Drink) e).getNumber();
+                rows[i][4] = String.valueOf(((Drink) e).getPrice());
+                rows[i][5] = String.valueOf(((Drink) e).getRemaining());
+            }
+            i++;
+        }
+
+        DefaultTableModel model = new DefaultTableModel(rows, columns);
+        stuffTable.setModel(model);
     }
 
     public static void main(String[] args) throws SQLException {
