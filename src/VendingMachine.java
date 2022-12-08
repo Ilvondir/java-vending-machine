@@ -86,7 +86,6 @@ public class VendingMachine extends JFrame {
             numberField.setText("");
 
             Rest cancelRest = new Rest(status);
-            JOptionPane.showMessageDialog(this, cancelRest.spend(), "Spend rest", 1);
         });
     }
 
@@ -146,5 +145,6 @@ public class VendingMachine extends JFrame {
     public static void main(String[] args) throws SQLException {
         VendingMachine mySnackMachine = new VendingMachine();
         mySnackMachine.setVisible(true);
+        new MessageWindow();
     }
 }
