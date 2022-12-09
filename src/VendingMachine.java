@@ -5,9 +5,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.File;
 import java.net.URL;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 public class VendingMachine extends JFrame {
 
@@ -37,27 +37,27 @@ public class VendingMachine extends JFrame {
     private JButton a2GrButton;
     private JButton a1GrButton;
 
-    private URL iconURL = getClass().getResource("img/icon.png");
-    private ImageIcon icon = new ImageIcon(iconURL);
+    private final String buttonSoundPath = "src/audio/button.mp3";
+    private final MP3Player player = new MP3Player(new File(buttonSoundPath));
 
-    private String buttonSoundPath = "src/audio/button.mp3";
-    private MP3Player player = new MP3Player(new File(buttonSoundPath));
+    private final MP3Player coinPlayer = new MP3Player(new File("src/audio/coin.mp3"));
 
-    private MP3Player coinPlayer = new MP3Player(new File("src/audio/coin.mp3"));
-
-    public VendingMachine() throws SQLException {
+    public VendingMachine() {
         super("Snack Vending Machine");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
+        URL iconURL = getClass().getResource("img/icon.png");
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(iconURL));
         this.setIconImage(icon.getImage());
         this.setBounds(0, 0, 1210, 540);
+        createTable();
+
         moneyField.setFont(new Font("Digital-7", Font.PLAIN, 120));
         moneyField.setBorder(new LineBorder(Color.BLACK, 4));
         moneyField.setHorizontalAlignment(JTextField.CENTER);
         numberField.setFont(new Font("Digital-7", Font.PLAIN, 120));
         numberField.setBorder(new LineBorder(Color.BLACK, 4));
         numberField.setHorizontalAlignment(JTextField.CENTER);
-        createTable();
 
         a1GrButton.addActionListener(e -> coinButton(0.01));
         a2GrButton.addActionListener(e -> coinButton(0.02));
@@ -110,15 +110,14 @@ public class VendingMachine extends JFrame {
 
 
     public void createTable() {
-        ArrayList<Product> stuffList = Database.getProducts();
+        Database stuffDatabase = new Database("jdbc:mysql://localhost/java_vending_machine", "root", "");
+        ArrayList<Product> stuffList = stuffDatabase.getProducts();
 
         String[] columns = {"Producer", "Name", "Volume",  "Number", "Price", "Remaining"};
 
-        int i = 0;
-        for (Object e : stuffList) i++;
-        String[][] rows = new String[i][6];
+        String[][] rows = new String[stuffList.size()][6];
 
-        i=0;
+        int i=0;
         for (Product e : stuffList) {
             if (e instanceof Food) {
                 rows[i][0] = ((Food) e).getProducer();
@@ -143,9 +142,8 @@ public class VendingMachine extends JFrame {
         stuffTable.setModel(model);
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         VendingMachine mySnackMachine = new VendingMachine();
         mySnackMachine.setVisible(true);
-        new MessageWindow("Nie");
     }
 }

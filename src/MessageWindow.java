@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class MessageWindow extends JFrame {
     private JPanel mainPanel;
@@ -7,13 +8,12 @@ public class MessageWindow extends JFrame {
     private JLabel imageLabel;
     private JLabel messageLabel;
 
-    private ImageIcon icon = new ImageIcon(new ImageIcon(getClass().getResource("img/icon.png")).getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT));
-
     public MessageWindow(String msg) {
         super("Message window");
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setContentPane(mainPanel);
-        this.setBounds(280, 120, 400, 200);
+        this.setBounds(280, 120, 300, 400);
+        ImageIcon icon = new ImageIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("img/icon.png"))).getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT));
         imageLabel.setIcon(icon);
         messageLabel.setText(msg);
         this.setVisible(true);

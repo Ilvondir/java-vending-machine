@@ -1,4 +1,4 @@
 public interface Product {
-    public String toString();
-    public String buyOne();
+    String toString();
+    String buyOne();
 }
