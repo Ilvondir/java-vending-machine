@@ -49,13 +49,14 @@ public class VendingMachine extends JFrame {
         ImageIcon icon = new ImageIcon(iconURL);
         this.setIconImage(icon.getImage());
         this.setBounds(0, 0, 1210, 540);
+        createTable();
+
         moneyField.setFont(new Font("Digital-7", Font.PLAIN, 120));
         moneyField.setBorder(new LineBorder(Color.BLACK, 4));
         moneyField.setHorizontalAlignment(JTextField.CENTER);
         numberField.setFont(new Font("Digital-7", Font.PLAIN, 120));
         numberField.setBorder(new LineBorder(Color.BLACK, 4));
         numberField.setHorizontalAlignment(JTextField.CENTER);
-        createTable();
 
         a1GrButton.addActionListener(e -> coinButton(0.01));
         a2GrButton.addActionListener(e -> coinButton(0.02));
@@ -108,7 +109,8 @@ public class VendingMachine extends JFrame {
 
 
     public void createTable() {
-        ArrayList<Product> stuffList = Database.getProducts();
+        Database stuffDatabase = new Database("jdbc:mysql://localhost/java_vending_machine", "root", "");
+        ArrayList<Product> stuffList = stuffDatabase.getProducts();
 
         String[] columns = {"Producer", "Name", "Volume",  "Number", "Price", "Remaining"};
 
