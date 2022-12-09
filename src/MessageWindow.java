@@ -13,7 +13,7 @@ public class MessageWindow extends JFrame {
         super("Message window");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
-        this.setBounds(280, 120, 400, 200);
+        this.setBounds(280, 120, 300, 400);
         imageLabel.setIcon(icon);
         messageLabel.setText(msg);
         this.setVisible(true);

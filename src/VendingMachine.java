@@ -146,6 +146,5 @@ public class VendingMachine extends JFrame {
     public static void main(String[] args) throws SQLException {
         VendingMachine mySnackMachine = new VendingMachine();
         mySnackMachine.setVisible(true);
-        new MessageWindow("Nie");
     }
 }
