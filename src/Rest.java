@@ -11,7 +11,7 @@ public class Rest {
 
     public String spend() {
         int temp = restInCents;
-        String communicate = "<html><span style=\"color: red; font-weight:700;\">Reszta do wydania: " + this.rest + " zł</span>";
+        StringBuilder communicate = new StringBuilder("<html><span style=\"color: red; font-weight:700;\">Reszta do wydania: " + this.rest + " zł</span>");
 
         int i=0;
         while(true) {
@@ -27,12 +27,12 @@ public class Rest {
             } else break;
         }
 
-        communicate += "<table style=\"width:100px; border: 1px solid black; border-collapse: collapse;\"><caption>Wydana reszta:</caption>";
+        communicate.append("<table style=\"width:100px; border: 1px solid black; border-collapse: collapse;\"><caption>Wydana reszta:</caption>");
         for(i=0;i<9;i++) {
-            communicate += "<tr><td style=\"border: 1px solid black; text-align: center; border-collapse: collapse;\">" + this.nominals[i]/100.0 + "</td><td style=\"text-align: center; border: 1px solid black; border-collapse: collapse;\">" + this.given[i] + "</td></tr>";
+            communicate.append("<tr><td style=\"border: 1px solid black; text-align: center; border-collapse: collapse;\">").append(this.nominals[i] / 100.0).append("</td><td style=\"text-align: center; border: 1px solid black; border-collapse: collapse;\">").append(this.given[i]).append("</td></tr>");
         }
 
-        communicate += "</table></html>";
-        return communicate;
+        communicate.append("</table></html>");
+        return communicate.toString();
     }
 }

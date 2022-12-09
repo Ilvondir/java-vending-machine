@@ -5,7 +5,7 @@ public class Database {
         public static ArrayList<Product> getProducts() {
             ArrayList<Product> list = new ArrayList<>();
 
-            Connection connection = null;
+            Connection connection;
             String username = "root";
             String password = "";
             String host = "jdbc:mysql://localhost/java_vending_machine";
@@ -16,7 +16,6 @@ public class Database {
                 Statement stat = connection.createStatement();
                 ResultSet results = stat.executeQuery(query);
 
-                int i = 0;
                 while (results.next()) {
                     String producer = results.getString("Producer");
                     String name = results.getString("Name");
@@ -39,8 +38,10 @@ public class Database {
 
             } catch (SQLException e) {
                 System.out.println("Nie udalo sie polaczyc z baza produktow.");
-                list.add(new Drink("Sink", "Woda niegazowana", "11", 2.00, 0.5, 10));
-                list.add(new Food("Dirt", "Marchew", "12", 1.50,  5));
+                list.add(new Food("Lajkonik", "Paluszki", "11", 3.50,  2));
+                list.add(new Food("Lajkonik", "Precelki", "12", 4.00,  3));
+                list.add(new Drink("Sink", "Woda niegazowana", "21", 2.00, 0.5, 10));
+                list.add(new Drink("Tymbark", "Sok jabłkowy", "22", 4.00, 0.5, 3));
                 return list;
             }
         }
