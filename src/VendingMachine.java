@@ -7,6 +7,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 public class VendingMachine extends JFrame {
 
@@ -46,7 +47,7 @@ public class VendingMachine extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         URL iconURL = getClass().getResource("img/icon.png");
-        ImageIcon icon = new ImageIcon(iconURL);
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(iconURL));
         this.setIconImage(icon.getImage());
         this.setBounds(0, 0, 1210, 540);
         createTable();
@@ -114,11 +115,9 @@ public class VendingMachine extends JFrame {
 
         String[] columns = {"Producer", "Name", "Volume",  "Number", "Price", "Remaining"};
 
-        int i = 0;
-        for (Object e : stuffList) i++;
-        String[][] rows = new String[i][6];
+        String[][] rows = new String[stuffList.size()][6];
 
-        i=0;
+        int i=0;
         for (Product e : stuffList) {
             if (e instanceof Food) {
                 rows[i][0] = ((Food) e).getProducer();

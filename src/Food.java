@@ -1,6 +1,6 @@
 public class Food implements Product {
-    private String producer, name, number;
-    private double price;
+    private final String producer, name, number;
+    private final double price;
     private int remaining;
 
     public Food(String producer, String name, String number, double price, int remaining) {

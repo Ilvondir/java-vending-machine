@@ -2,7 +2,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Database {
-    private String host, username, password;
+    private final String host;
+    private final String username;
+    private final String password;
 
     public Database(String host, String username, String password) {
         this.host = host;
