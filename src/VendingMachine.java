@@ -3,6 +3,8 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -50,7 +52,7 @@ public class VendingMachine extends JFrame {
         ImageIcon icon = new ImageIcon(Objects.requireNonNull(iconURL));
         this.setIconImage(icon.getImage());
         this.setBounds(0, 0, 1210, 540);
-        createTable();
+        DefaultTableModel model = createTable();
 
         moneyField.setFont(new Font("Digital-7", Font.PLAIN, 120));
         moneyField.setBorder(new LineBorder(Color.BLACK, 4));
@@ -88,6 +90,13 @@ public class VendingMachine extends JFrame {
             Rest cancelRest = new Rest(status);
             new MessageWindow(cancelRest.spend());
         });
+
+        buyButton.addActionListener(e -> {
+            String selectedNumber = numberField.getText();
+            double money = Double.parseDouble(moneyField.getText());
+
+            if (!selectedNumber.equals("")) updateTable(model, selectedNumber);
+        });
     }
 
     public void numericButton(String num) {
@@ -108,8 +117,7 @@ public class VendingMachine extends JFrame {
         coinPlayer.play();
     }
 
-
-    public void createTable() {
+    public DefaultTableModel createTable() {
         Database stuffDatabase = new Database("jdbc:mysql://localhost/java_vending_machine", "root", "");
         ArrayList<Product> stuffList = stuffDatabase.getProducts();
 
@@ -123,7 +131,7 @@ public class VendingMachine extends JFrame {
                 rows[i][0] = ((Food) e).getProducer();
                 rows[i][1] = ((Food) e).getName();
                 rows[i][2] = "---";
-                rows[i][3] = ((Food) e).getNumber();
+                rows[i][3] = e.getNumber();
                 rows[i][4] = String.valueOf(((Food) e).getPrice());
                 rows[i][5] = String.valueOf(((Food) e).getRemaining());
 
@@ -131,7 +139,7 @@ public class VendingMachine extends JFrame {
                 rows[i][0] = ((Drink) e).getProducer();
                 rows[i][1] = ((Drink) e).getName();
                 rows[i][2] = String.valueOf(((Drink) e).getVolume());
-                rows[i][3] = ((Drink) e).getNumber();
+                rows[i][3] = e.getNumber();
                 rows[i][4] = String.valueOf(((Drink) e).getPrice());
                 rows[i][5] = String.valueOf(((Drink) e).getRemaining());
             }
@@ -140,6 +148,22 @@ public class VendingMachine extends JFrame {
 
         DefaultTableModel model = new DefaultTableModel(rows, columns);
         stuffTable.setModel(model);
+
+        return model;
+    }
+
+    public void updateTable(DefaultTableModel model, String number) {
+        int index = 7;
+
+        for (int i=0;i<model.getRowCount();i++) {
+            String num = String.valueOf(model.getValueAt(i, 3));
+            if (number.equals(num)) index = i;
+        }
+
+        String remaining = (String)model.getValueAt(index, 5);
+        int rem = Integer.valueOf(remaining);
+        rem--;
+        model.setValueAt(String.valueOf(rem), index, 5);
     }
 
     public static void main(String[] args) {
