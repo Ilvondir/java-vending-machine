@@ -18,10 +18,8 @@ public class Rest {
             if (i<9) {
 
                 if (temp-this.nominals[i]>=0) {
-
                     temp -= this.nominals[i];
                     this.given[i]++;
-
                 } else i++;
 
             } else break;

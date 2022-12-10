@@ -125,27 +125,28 @@ public class VendingMachine extends JFrame {
         int i=0;
         for (Product e : stuffList) {
             if (e instanceof Food) {
-                rows[i][0] = ((Food) e).getProducer();
-                rows[i][1] = ((Food) e).getName();
+                rows[i][0] = e.getProducer();
+                rows[i][1] = e.getName();
                 rows[i][2] = "---";
                 rows[i][3] = e.getNumber();
-                rows[i][4] = String.valueOf(((Food) e).getPrice());
-                rows[i][5] = String.valueOf(((Food) e).getRemaining());
+                rows[i][4] = String.valueOf(e.getPrice());
+                rows[i][5] = String.valueOf(e.getRemaining());
 
             } else {
-                rows[i][0] = ((Drink) e).getProducer();
-                rows[i][1] = ((Drink) e).getName();
+                rows[i][0] = e.getProducer();
+                rows[i][1] = e.getName();
                 rows[i][2] = String.valueOf(((Drink) e).getVolume());
                 rows[i][3] = e.getNumber();
-                rows[i][4] = String.valueOf(((Drink) e).getPrice());
-                rows[i][5] = String.valueOf(((Drink) e).getRemaining());
+                rows[i][4] = String.valueOf(e.getPrice());
+                rows[i][5] = String.valueOf(e.getRemaining());
             }
             i++;
         }
 
         DefaultTableModel model = new DefaultTableModel(rows, columns);
         stuffTable.setModel(model);
-
+        stuffTable.getColumnModel().getColumn(0).setPreferredWidth(180);
+        stuffTable.getColumnModel().getColumn(1).setPreferredWidth(220);
         return model;
     }
 
