@@ -50,7 +50,7 @@ public class VendingMachine extends JFrame {
         ImageIcon icon = new ImageIcon(Objects.requireNonNull(iconURL));
         this.setIconImage(icon.getImage());
         this.setBounds(0, 0, 1210, 540);
-        createTable();
+        DefaultTableModel model = createTable();
 
         moneyField.setFont(new Font("Digital-7", Font.PLAIN, 120));
         moneyField.setBorder(new LineBorder(Color.BLACK, 4));
@@ -86,7 +86,13 @@ public class VendingMachine extends JFrame {
             numberField.setText("");
 
             Rest cancelRest = new Rest(status);
-            new MessageWindow(cancelRest.spend());
+            new MessageWindow("<html>" + cancelRest.spend());
+        });
+
+        buyButton.addActionListener(e -> {
+            String selectedNumber = numberField.getText();
+
+            if (!selectedNumber.equals("")) buyProduct(model, selectedNumber);
         });
     }
 
@@ -108,8 +114,7 @@ public class VendingMachine extends JFrame {
         coinPlayer.play();
     }
 
-
-    public void createTable() {
+    public DefaultTableModel createTable() {
         Database stuffDatabase = new Database("jdbc:mysql://localhost/java_vending_machine", "root", "");
         ArrayList<Product> stuffList = stuffDatabase.getProducts();
 
@@ -123,7 +128,7 @@ public class VendingMachine extends JFrame {
                 rows[i][0] = ((Food) e).getProducer();
                 rows[i][1] = ((Food) e).getName();
                 rows[i][2] = "---";
-                rows[i][3] = ((Food) e).getNumber();
+                rows[i][3] = e.getNumber();
                 rows[i][4] = String.valueOf(((Food) e).getPrice());
                 rows[i][5] = String.valueOf(((Food) e).getRemaining());
 
@@ -131,7 +136,7 @@ public class VendingMachine extends JFrame {
                 rows[i][0] = ((Drink) e).getProducer();
                 rows[i][1] = ((Drink) e).getName();
                 rows[i][2] = String.valueOf(((Drink) e).getVolume());
-                rows[i][3] = ((Drink) e).getNumber();
+                rows[i][3] = e.getNumber();
                 rows[i][4] = String.valueOf(((Drink) e).getPrice());
                 rows[i][5] = String.valueOf(((Drink) e).getRemaining());
             }
@@ -140,6 +145,51 @@ public class VendingMachine extends JFrame {
 
         DefaultTableModel model = new DefaultTableModel(rows, columns);
         stuffTable.setModel(model);
+
+        return model;
+    }
+
+    public void buyProduct(DefaultTableModel model, String number) {
+
+        double money = Double.parseDouble(moneyField.getText());
+
+        int index = -1;
+
+        for (int i=0;i<model.getRowCount();i++) {
+            String num = String.valueOf(model.getValueAt(i, 3));
+            if (number.equals(num)) index = i;
+        }
+
+        if (index>-1) {
+            String remaining = (String) model.getValueAt(index, 5);
+            double price = Double.parseDouble(String.valueOf(model.getValueAt(index, 4)));
+
+            double status = Double.parseDouble(moneyField.getText());
+            moneyField.setText("0.00");
+            numberField.setText("");
+            Rest rest;
+
+            if (price <= money) {
+                rest = new Rest(status - price);
+                new MessageWindow("<html>Udało się kupić produkt<br>o numerze " + number + ".<br><br>" + rest.spend());
+                int rem = Integer.parseInt(remaining);
+                rem--;
+
+                if (rem>0) model.setValueAt(String.valueOf(rem), index, 5);
+                else model.removeRow(index);
+            } else {
+                rest = new Rest(status);
+                new MessageWindow("<html>Nie stać Cię na produkt<br>o numerze " + number + ".<br><br>" + rest.spend());
+            }
+
+        } else {
+            double status = Double.parseDouble(moneyField.getText());
+            moneyField.setText("0.00");
+            numberField.setText("");
+
+            Rest rest = new Rest(status);
+            new MessageWindow("<html><span style=\"text-align: center\">Nie odnaleziono produktu<br>o numerze " + number + ".</span><br><br>" + rest.spend());
+        }
     }
 
     public static void main(String[] args) {
