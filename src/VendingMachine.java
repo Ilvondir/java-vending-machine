@@ -41,6 +41,7 @@ public class VendingMachine extends JFrame {
     private final MP3Player coinPlayer = new MP3Player(new File("src/audio/coin.mp3"));
     private final MP3Player buyPlayer = new MP3Player(new File("src/audio/submit.mp3"));
     private final MP3Player cancelPlayer = new MP3Player(new File("src/audio/cancel.mp3"));
+    private final MP3Player backgroundPlayer = new MP3Player(new File("src/audio/background.mp3"));
 
     public VendingMachine() {
         super("Snack Vending Machine");
@@ -50,6 +51,8 @@ public class VendingMachine extends JFrame {
         ImageIcon icon = new ImageIcon(Objects.requireNonNull(iconURL));
         this.setIconImage(icon.getImage());
         this.setBounds(0, 0, 1210, 540);
+        backgroundPlayer.setRepeat(true);
+        backgroundPlayer.play();
         DefaultTableModel model = createTable();
 
         moneyField.setFont(new Font("Digital-7", Font.PLAIN, 120));
