@@ -3,8 +3,6 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -88,14 +86,13 @@ public class VendingMachine extends JFrame {
             numberField.setText("");
 
             Rest cancelRest = new Rest(status);
-            new MessageWindow(cancelRest.spend());
+            new MessageWindow("<html>" + cancelRest.spend());
         });
 
         buyButton.addActionListener(e -> {
             String selectedNumber = numberField.getText();
-            double money = Double.parseDouble(moneyField.getText());
 
-            if (!selectedNumber.equals("")) updateTable(model, selectedNumber);
+            if (!selectedNumber.equals("")) buyProduct(model, selectedNumber);
         });
     }
 
@@ -152,18 +149,47 @@ public class VendingMachine extends JFrame {
         return model;
     }
 
-    public void updateTable(DefaultTableModel model, String number) {
-        int index = 7;
+    public void buyProduct(DefaultTableModel model, String number) {
+
+        double money = Double.parseDouble(moneyField.getText());
+
+        int index = -1;
 
         for (int i=0;i<model.getRowCount();i++) {
             String num = String.valueOf(model.getValueAt(i, 3));
             if (number.equals(num)) index = i;
         }
 
-        String remaining = (String)model.getValueAt(index, 5);
-        int rem = Integer.valueOf(remaining);
-        rem--;
-        model.setValueAt(String.valueOf(rem), index, 5);
+        if (index>-1) {
+            String remaining = (String) model.getValueAt(index, 5);
+            double price = Double.parseDouble(String.valueOf(model.getValueAt(index, 4)));
+
+            double status = Double.parseDouble(moneyField.getText());
+            moneyField.setText("0.00");
+            numberField.setText("");
+            Rest rest;
+
+            if (price <= money) {
+                rest = new Rest(status - price);
+                new MessageWindow("<html>Udało się kupić produkt<br>o numerze " + number + ".<br><br>" + rest.spend());
+                int rem = Integer.parseInt(remaining);
+                rem--;
+
+                if (rem>0) model.setValueAt(String.valueOf(rem), index, 5);
+                else model.removeRow(index);
+            } else {
+                rest = new Rest(status);
+                new MessageWindow("<html>Nie stać Cię na produkt<br>o numerze " + number + ".<br><br>" + rest.spend());
+            }
+
+        } else {
+            double status = Double.parseDouble(moneyField.getText());
+            moneyField.setText("0.00");
+            numberField.setText("");
+
+            Rest rest = new Rest(status);
+            new MessageWindow("<html><span style=\"text-align: center\">Nie odnaleziono produktu<br>o numerze " + number + ".</span><br><br>" + rest.spend());
+        }
     }
 
     public static void main(String[] args) {
