@@ -37,10 +37,10 @@ public class VendingMachine extends JFrame {
     private JButton a2GrButton;
     private JButton a1GrButton;
 
-    private final String buttonSoundPath = "src/audio/button.mp3";
-    private final MP3Player player = new MP3Player(new File(buttonSoundPath));
-
+    private final MP3Player buttonPlayer = new MP3Player(new File("src/audio/button.mp3"));
     private final MP3Player coinPlayer = new MP3Player(new File("src/audio/coin.mp3"));
+    private final MP3Player buyPlayer = new MP3Player(new File("src/audio/submit.mp3"));
+    private final MP3Player cancelPlayer = new MP3Player(new File("src/audio/cancel.mp3"));
 
     public VendingMachine() {
         super("Snack Vending Machine");
@@ -84,20 +84,22 @@ public class VendingMachine extends JFrame {
             double status = Double.parseDouble(moneyField.getText());
             moneyField.setText("0.00");
             numberField.setText("");
-
+            cancelPlayer.play();
             Rest cancelRest = new Rest(status);
             new MessageWindow("<html>" + cancelRest.spend());
         });
 
         buyButton.addActionListener(e -> {
             String selectedNumber = numberField.getText();
-
-            if (!selectedNumber.equals("")) buyProduct(model, selectedNumber);
+            if (!selectedNumber.equals("")) {
+                buyPlayer.play();
+                buyProduct(model, selectedNumber);
+            }
         });
     }
 
     public void numericButton(String num) {
-        player.play();
+        buttonPlayer.play();
         String txt = numberField.getText();
         if (txt.length()<2) txt += num;
         else txt = num;
