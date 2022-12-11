@@ -11,17 +11,15 @@ public class Rest {
 
     public String spend() {
         int temp = restInCents;
-        StringBuilder communicate = new StringBuilder("<span style=\"color: red; font-weight:700;\">Reszta do wydania: " + this.rest + " zł</span>");
+        StringBuilder communicate = new StringBuilder("<span style=\"color: red; font-weight:700;\">Reszta do wydania: " + String.format("%.2f", this.rest) + " zł</span>");
 
         int i=0;
         while(true) {
             if (i<9) {
 
                 if (temp-this.nominals[i]>=0) {
-
                     temp -= this.nominals[i];
                     this.given[i]++;
-
                 } else i++;
 
             } else break;

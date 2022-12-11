@@ -1,5 +1,8 @@
 public interface Product {
     String toString();
-    String buyOne();
     String getNumber();
+    String getName();
+    String getProducer();
+    double getPrice();
+    int getRemaining();
 }

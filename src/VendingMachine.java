@@ -37,19 +37,25 @@ public class VendingMachine extends JFrame {
     private JButton a2GrButton;
     private JButton a1GrButton;
 
-    private final String buttonSoundPath = "src/audio/button.mp3";
-    private final MP3Player player = new MP3Player(new File(buttonSoundPath));
-
+    private final MP3Player buttonPlayer = new MP3Player(new File("src/audio/button.mp3"));
     private final MP3Player coinPlayer = new MP3Player(new File("src/audio/coin.mp3"));
+    private final MP3Player buyPlayer = new MP3Player(new File("src/audio/submit.mp3"));
+    private final MP3Player cancelPlayer = new MP3Player(new File("src/audio/cancel.mp3"));
 
     public VendingMachine() {
         super("Snack Vending Machine");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
+        this.setBounds(0, 0, 1210, 540);
+
         URL iconURL = getClass().getResource("img/icon.png");
         ImageIcon icon = new ImageIcon(Objects.requireNonNull(iconURL));
         this.setIconImage(icon.getImage());
-        this.setBounds(0, 0, 1210, 540);
+
+        MP3Player backgroundPlayer = new MP3Player(new File("src/audio/background.mp3"));
+        backgroundPlayer.setRepeat(true);
+        backgroundPlayer.play();
+
         DefaultTableModel model = createTable();
 
         moneyField.setFont(new Font("Digital-7", Font.PLAIN, 120));
@@ -84,20 +90,22 @@ public class VendingMachine extends JFrame {
             double status = Double.parseDouble(moneyField.getText());
             moneyField.setText("0.00");
             numberField.setText("");
-
+            cancelPlayer.play();
             Rest cancelRest = new Rest(status);
             new MessageWindow("<html>" + cancelRest.spend());
         });
 
         buyButton.addActionListener(e -> {
             String selectedNumber = numberField.getText();
-
-            if (!selectedNumber.equals("")) buyProduct(model, selectedNumber);
+            if (!selectedNumber.equals("")) {
+                buyPlayer.play();
+                buyProduct(model, selectedNumber);
+            }
         });
     }
 
     public void numericButton(String num) {
-        player.play();
+        buttonPlayer.play();
         String txt = numberField.getText();
         if (txt.length()<2) txt += num;
         else txt = num;
@@ -125,27 +133,28 @@ public class VendingMachine extends JFrame {
         int i=0;
         for (Product e : stuffList) {
             if (e instanceof Food) {
-                rows[i][0] = ((Food) e).getProducer();
-                rows[i][1] = ((Food) e).getName();
+                rows[i][0] = e.getProducer();
+                rows[i][1] = e.getName();
                 rows[i][2] = "---";
                 rows[i][3] = e.getNumber();
-                rows[i][4] = String.valueOf(((Food) e).getPrice());
-                rows[i][5] = String.valueOf(((Food) e).getRemaining());
+                rows[i][4] = String.valueOf(e.getPrice());
+                rows[i][5] = String.valueOf(e.getRemaining());
 
             } else {
-                rows[i][0] = ((Drink) e).getProducer();
-                rows[i][1] = ((Drink) e).getName();
+                rows[i][0] = e.getProducer();
+                rows[i][1] = e.getName();
                 rows[i][2] = String.valueOf(((Drink) e).getVolume());
                 rows[i][3] = e.getNumber();
-                rows[i][4] = String.valueOf(((Drink) e).getPrice());
-                rows[i][5] = String.valueOf(((Drink) e).getRemaining());
+                rows[i][4] = String.valueOf(e.getPrice());
+                rows[i][5] = String.valueOf(e.getRemaining());
             }
             i++;
         }
 
         DefaultTableModel model = new DefaultTableModel(rows, columns);
         stuffTable.setModel(model);
-
+        stuffTable.getColumnModel().getColumn(0).setPreferredWidth(180);
+        stuffTable.getColumnModel().getColumn(1).setPreferredWidth(220);
         return model;
     }
 

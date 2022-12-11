@@ -1,7 +1,7 @@
 public class Food implements Product {
     private final String producer, name, number;
     private final double price;
-    private int remaining;
+    private final int remaining;
 
     public Food(String producer, String name, String number, double price, int remaining) {
         this.producer = producer;
@@ -39,14 +39,5 @@ public class Food implements Product {
                 ", price=" + price +
                 ", remaining=" + remaining +
                 '}';
-    }
-
-    public String buyOne() {
-        if (this.remaining>0) {
-            this.remaining--;
-            return "Udalo sie zakupic produkt.";
-        }
-
-        return "Nie udalo sie zakupic produktu.";
     }
 }
