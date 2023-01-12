@@ -37,10 +37,10 @@ public class VendingMachine extends JFrame {
     private JButton a2GrButton;
     private JButton a1GrButton;
 
-    private final MP3Player buttonPlayer = new MP3Player(new File("src/audio/button.mp3"));
-    private final MP3Player coinPlayer = new MP3Player(new File("src/audio/coin.mp3"));
-    private final MP3Player buyPlayer = new MP3Player(new File("src/audio/submit.mp3"));
-    private final MP3Player cancelPlayer = new MP3Player(new File("src/audio/cancel.mp3"));
+    private final MP3Player buttonPlayer = new MP3Player(new File("src/main/resources/audio/button.mp3"));
+    private final MP3Player coinPlayer = new MP3Player(new File("src/main/resources/audio/coin.mp3"));
+    private final MP3Player buyPlayer = new MP3Player(new File("src/main/resources/audio/submit.mp3"));
+    private final MP3Player cancelPlayer = new MP3Player(new File("src/main/resources/audio/cancel.mp3"));
 
     public VendingMachine() {
         super("Snack Vending Machine");
@@ -52,7 +52,7 @@ public class VendingMachine extends JFrame {
         ImageIcon icon = new ImageIcon(Objects.requireNonNull(iconURL));
         this.setIconImage(icon.getImage());
 
-        MP3Player backgroundPlayer = new MP3Player(new File("src/audio/background.mp3"));
+        MP3Player backgroundPlayer = new MP3Player(new File("src/main/resources/audio/background.mp3"));
         backgroundPlayer.setRepeat(true);
         backgroundPlayer.play();
 
