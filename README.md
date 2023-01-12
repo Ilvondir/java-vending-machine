@@ -7,7 +7,9 @@ The project presents the operation of a vending machine selling snacks and drink
 - Java SE 19
 - Swing
 - JDBC 4.3
+- MySQL Connector/J 8.0.30
 - JACo MP3 Player 0.9.3
+- Maven 4.0.0
 
 ## Requirements
 
@@ -26,4 +28,4 @@ For running this program you need:
 
 ## First Look
 
-![firstlook](src/img/firstlook.PNG?raw=true)
+![firstlook](src/main/resources/img/firstlook.PNG?raw=true)
