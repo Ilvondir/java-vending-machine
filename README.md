@@ -15,6 +15,7 @@ The project presents the operation of a vending machine selling snacks and drink
 
 For running this program you need:
 
+- [Java](https://www.java.com/en/download)
 - SQL Server e.g. [XAMPP](https://www.apachefriends.org/pl/index.html)
 
 ## How to run
