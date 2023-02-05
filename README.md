@@ -24,6 +24,7 @@ For running this program you need:
 3. Open XAMPP and start Apache with MySQL.
 4. Type `localhost` in your browser and open `phpMyAdmin`.
 5. Import database from `sql/java-vending-machine.sql`.
+6. Install library from `src/main/resources/lib`.
 6. Open and compile project in Java IDE.
 
 ## First Look
